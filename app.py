@@ -1,5 +1,7 @@
 from flask import Flask
+
 from src.utils import inspect_request
+from src.logger import log_request
 
 app = Flask(__name__)
 
@@ -9,23 +11,10 @@ def home():
 
     request_info = inspect_request()
 
+    log_request(request_info)
+
     return f"""
-    <h1>SentinelShield</h1>
-
-    <h3>HTTP Request Inspection</h3>
-
-    <b>Client IP:</b> {request_info['ip']}<br><br>
-
-    <b>Method:</b> {request_info['method']}<br><br>
-
-    <b>URL:</b> {request_info['url']}<br><br>
-
-    <b>Path:</b> {request_info['path']}<br><br>
-
-    <b>Query Parameters:</b> {request_info['query_parameters']}<br><br>
-
-    <b>Form Data:</b> {request_info['form_data']}<br><br>
-
+    ...
     """
 
 
