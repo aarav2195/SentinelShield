@@ -14,7 +14,7 @@ def home():
 
     attack = detect_attack(request_info)
 
-    log_request(request_info)
+    log_request(request_info, attack)
 
     return f"""
     <h1>SentinelShield</h1>
