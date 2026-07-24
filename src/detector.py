@@ -1,4 +1,4 @@
-from src.rules import detect_sqli, detect_xss, detect_traversal, detect_lfi
+from src.rules import detect_sqli, detect_xss, detect_traversal, detect_lfi, detect_command_injection
 
 
 def detect_attack(request_info):
@@ -16,5 +16,8 @@ def detect_attack(request_info):
 
     if detect_lfi(query):
         return "Local File Inclusion (LFI)"
+
+    if detect_command_injection(query):
+        return "Command Injection"
 
     return None

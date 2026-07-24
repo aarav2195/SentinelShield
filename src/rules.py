@@ -78,4 +78,21 @@ def detect_lfi(text):
         if re.search(pattern,text,re.IGNORECASE):
             return True
 
-    return False 
+    return False
+
+COMMAND_PATTERNS = [
+    r";\s*[\w.-]+",
+    r"&&\s*[\w.-]+",
+    r"\|\s*[\w.-]+",
+    r"`[^`]+`",
+    r"\$\([^)]+\)",
+] 
+
+def detect_command_injection(text):
+    if not text:
+        return False
+    for pattern in COMMAND_PATTERNS:
+        if re.search(pattern,text,re.IGNORECASE):
+            return True
+
+    return False
