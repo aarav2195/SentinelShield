@@ -1,22 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>403 Forbidden</title>
+
+    <meta charset="UTF-8">
+
+    <title>SentinelShield | Access Blocked</title>
+
 </head>
 
-<body>
+<body style="font-family:Arial;background:#111827;color:white;text-align:center;padding:60px;">
 
-    <h1>403 Forbidden</h1>
+    <h1 style="color:#ef4444;">
+        🛡 SentinelShield
+    </h1>
 
-    <h2>Request Blocked</h2>
+    <hr>
+
+    <h2>
+        🚫 Access Denied
+    </h2>
 
     <p>
-        SentinelShield detected malicious activity.
+        Your request has been identified as malicious and has been blocked.
+    </p>
+
+    <h3 style="color:#facc15;">
+        {{ attack }}
+    </h3>
+
+    <p>
+        Client IP :
+        {{ ip }}
     </p>
 
     <p>
-        Your request has been blocked.
+        HTTP Status :
+        <b>403 Forbidden</b>
+    </p>
+
+    <hr>
+
+    <p style="color:gray;">
+        Protected by SentinelShield Advanced Web Protection System
     </p>
 
 </body>

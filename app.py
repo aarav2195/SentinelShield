@@ -17,7 +17,7 @@ def home():
     log_request(request_info, attack)
 
     if attack:
-        return render_template("blocked.html"),403
+        return render_template("blocked.html",attack=attack,ip=request_info["ip"]),403
 
     return f"""
     <h1>SentinelShield</h1>
