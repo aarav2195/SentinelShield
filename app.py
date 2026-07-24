@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from src.utils import inspect_request
 from src.logger import log_request
@@ -15,6 +15,9 @@ def home():
     attack = detect_attack(request_info)
 
     log_request(request_info, attack)
+
+    if attack:
+        return render_template("blocked.html"),403
 
     return f"""
     <h1>SentinelShield</h1>
