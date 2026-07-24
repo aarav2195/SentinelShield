@@ -1,4 +1,4 @@
-from src.rules import detect_sqli, detect_xss, detect_traversal
+from src.rules import detect_sqli, detect_xss, detect_traversal, detect_lfi
 
 
 def detect_attack(request_info):
@@ -13,5 +13,8 @@ def detect_attack(request_info):
 
     if detect_traversal(query):
         return "Directory Traversal"
+
+    if detect_lfi(query):
+        return "Local File Inclusion (LFI)"
 
     return None

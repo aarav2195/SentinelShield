@@ -50,9 +50,6 @@ def detect_xss(text):
 TRAVERSAL_PATTERNS = [
     r"\.\./",
     r"\.\.//",
-    r"/etc/passwd",
-    r"boot.ini",
-    r"win.ini"
 ]
 
 def detect_traversal(text):
@@ -64,3 +61,21 @@ def detect_traversal(text):
             return True
 
     return False
+
+LFI_PATTERNS = [
+    r"/etc/passwd",
+    r"/etc/shadow",
+    r"boot.ini",
+    r"win.ini",
+    r"php://",
+    r"file://",
+]
+
+def detect_lfi(text):
+    if not text:
+        return False
+    for pattern in LFI_PATTERNS:
+        if re.search(pattern,text,re.IGNORECASE):
+            return True
+
+    return False 
