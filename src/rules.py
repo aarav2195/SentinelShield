@@ -1,14 +1,14 @@
 import re
 
 SQLI_PATTERNS = [
-    r"(\%27)|(\')|(\-\-)|(\%23)|(#)",
-    r"(\bOR\b|\bAND\b).*=.*",
+    r"\bOR\b.*=.*",
+    r"\bAND\b.*=.*",
     r"UNION\s+SELECT",
     r"SELECT\s+.*FROM",
     r"INSERT\s+INTO",
-    r"DROP\s+TABLE",
-    r"DELETE\s+FROM",
     r"UPDATE\s+.*SET",
+    r"DELETE\s+FROM",
+    r"DROP\s+TABLE",
 ]
 
 
@@ -43,6 +43,24 @@ def detect_xss(text):
 
     for pattern in XSS_PATTERNS:
         if re.search(pattern, text, re.IGNORECASE):
+            return True
+
+    return False
+
+TRAVERSAL_PATTERNS = [
+    r"\.\./",
+    r"\.\.//",
+    r"/etc/passwd",
+    r"boot.ini",
+    r"win.ini"
+]
+
+def detect_traversal(text):
+    if not text:
+        return False
+
+    for pattern in TRAVERSAL_PATTERNS:
+        if re.search(pattern,text,re.IGNORECASE):
             return True
 
     return False
