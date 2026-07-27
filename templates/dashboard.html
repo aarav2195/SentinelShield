@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>SentinelShield Dashboard</title>
+
+    </head>
+
+    <body>
+
+        <h1>🛡 SentinelShield Dashboard</h1>
+
+        <hr>
+
+        <h2>Statistics</h2>
+
+        <p>Total Requests: {{ total_requests }}</p>
+
+        <p>Blocked Requests: {{ blocked_requests }}</p>
+
+        <hr>
+
+        <h2>Attack Summary</h2>
+
+        <ul>
+
+            {% for attack, count in attack_counts.items() %}
+
+            <li>{{ attack }} : {{ count }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+        <hr>
+
+        <h2>Recent Requests</h2>
+
+        <pre>
+
+            {% for log in recent_logs %}
+            {{ log }}
+            {% endfor %}
+
+        </pre>
+
+    </body>
+
+</html>

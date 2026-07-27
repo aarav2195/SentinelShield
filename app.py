@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from src.utils import inspect_request
 from src.logger import log_request
 from src.detector import detect_attack
+from src.dashboard import get_dashboard_data
 
 app = Flask(__name__)
 
@@ -13,6 +14,12 @@ def home():
     request_info = inspect_request()
 
     attack = detect_attack(request_info)
+
+    print("=" * 60)
+    print("METHOD :", request_info["method"])
+    print("PATH   :", request_info["path"])
+    print("URL    :", request_info["url"])
+    print("=" * 60)
 
     log_request(request_info, attack)
 
@@ -39,6 +46,19 @@ def home():
     <b>Form Data:</b> {request_info['form_data']}<br><br>
 
     """
+
+@app.route("/dashboard")
+def dashboard():
+
+    total_requests, blocked_requests, attack_counts, recent_logs = get_dashboard_data()
+
+    return render_template(
+        "dashboard.html",
+        total_requests=total_requests,
+        blocked_requests=blocked_requests,
+        attack_counts=attack_counts,
+        recent_logs=recent_logs
+    )
 
 
 if __name__ == "__main__":
