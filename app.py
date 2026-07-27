@@ -50,16 +50,16 @@ def home():
 @app.route("/dashboard")
 def dashboard():
 
-    total_requests, blocked_requests, attack_counts, recent_logs = get_dashboard_data()
+    total_requests, blocked_requests, attack_counts, recent_logs, threat_level = get_dashboard_data()
 
     return render_template(
         "dashboard.html",
         total_requests=total_requests,
         blocked_requests=blocked_requests,
         attack_counts=attack_counts,
-        recent_logs=recent_logs
+        recent_logs=recent_logs,
+        threat_level=threat_level
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)

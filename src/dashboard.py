@@ -42,4 +42,17 @@ def get_dashboard_data():
 
     recent_logs = recent_logs[-10:]
 
-    return (total_requests,blocked_requests,attack_counts,recent_logs)
+    if total_requests == 0:
+        threat_level = "LOW"
+
+    else:
+        percentage = (blocked_requests / total_requests) * 100
+
+        if percentage < 20:
+            threat_level = "LOW"
+        elif percentage < 50:
+            threat_level = "MEDIUM"
+        else:
+            threat_level = "HIGH"
+
+    return (total_requests,blocked_requests,attack_counts,recent_logs,threat_level)
