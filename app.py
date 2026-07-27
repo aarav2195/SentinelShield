@@ -4,6 +4,7 @@ from src.utils import inspect_request
 from src.logger import log_request
 from src.detector import detect_attack
 from src.dashboard import get_dashboard_data
+from src.rate_limiter import check_rate_limit
 
 app = Flask(__name__)
 
@@ -13,13 +14,12 @@ def home():
 
     request_info = inspect_request()
 
-    attack = detect_attack(request_info)
+    if check_rate_limit(request_info["ip"]):
+        log_request(request_info, "Rate Limit Exceeded")
 
-    print("=" * 60)
-    print("METHOD :", request_info["method"])
-    print("PATH   :", request_info["path"])
-    print("URL    :", request_info["url"])
-    print("=" * 60)
+        return render_template("blocked.html",attack="Rate Limit Exceeded",ip=request_info["ip"]), 429
+
+    attack = detect_attack(request_info)
 
     log_request(request_info, attack)
 
