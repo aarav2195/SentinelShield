@@ -10,29 +10,34 @@
         <style>
 
             body{
-                background:#0f172a;
+                background:#212529;
                 color:#f8fafc;
                 font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
             }
 
+            .navbar{
+                padding:15px 25px;
+            }
+
             .dashboard-title{
                 color:#38bdf8;
-                font-weight:700;
+                font-size:58px;
+                font-weight:bold;
                 text-align:center;
                 margin-bottom:35px;
             }
 
             .card{
                 border:none;
-                border-radius:18px;
+                border-radius:20px;
                 color:white;
-                box-shadow:0 10px 25px rgba(0,0,0,.35);
-                transition:all .3s ease;
+                box-shadow:0 10px 25px rgba(0,0,0,.25);
+                transition: 0.3s;
             }
 
             .card:hover{
-                transform:translateY(-6px);
-                box-shadow:0 15px 35px rgba(0,0,0,.45);
+                transform:translateY(-8px);
+                box-shadow:0 18px 35px rgba(0,0,0,0.45);
             }
 
             .card-body{
@@ -41,6 +46,7 @@
                 justify-content:center;
                 align-items:center;
                 min-height:180px;
+                padding:35px
             }
 
             .card-body h2{
@@ -52,16 +58,44 @@
                 font-weight:600;
             }
 
+            .card h5{
+                font-size:28px;
+            }
+
+            .card h2{
+                font-size:65px;
+                font-weight:bold;
+            }
+
             .section-title{
                 color:#38bdf8;
-                margin-top:35px;
+                margin-top:40px;
                 margin-bottom:20px;
                 font-weight:600;
+                color:white;
             }
 
             .table{
-                border-radius:12px;
+                border-radius:15px;
                 overflow:hidden;
+            }
+
+            .table td,
+            .table th{
+                vertical-align:middle;
+            }
+
+            .table td{
+                font-size:14px;
+            }
+            .table tbody tr:hover{
+                background:#1f2937 !important;
+            }
+
+            .table td:nth-child(1){
+                width:70px;
+                text-align:center;
+                font-weight:bold;
             }
 
             .table thead{
@@ -74,9 +108,10 @@
             }
 
             .progress{
-                height:24px;
+                height:25px;
                 border-radius:20px;
                 background:#334155;
+                overflow:hidden;
             }
 
             .progress-bar{
@@ -90,9 +125,9 @@
 
             .logs-box{
                 background:#111827;
-                border-radius:12px;
-                padding:18px;
-                max-height:320px;
+                border-radius:15px;
+                padding:20px;
+                max-height:350px;
                 overflow-y:auto;
                 border:1px solid #374151;
             }
@@ -109,81 +144,63 @@
                 border-color:#334155;
             }
 
+            footer{
+                color:#9ca3af;
+                text-align:center;
+                margin-top:40px;
+                padding:15px;
+
+            }
+
         </style>
 
     </head>
 
     <body class="bg-dark text-light">
 
-        <div class="container mt-4">
+        <nav class="navbar navbar-expand-lg shadow-sm" style="background:#111827; border-bottom:2px solid #0dcaf0;">
+
+            <div class="container-fluid">
+
+                <span class="navbar-brand fw-bold fs-4"
+                    style="color:#38bdf8;">
+                    🛡 SentinelShield
+                </span>
+
+                <span class="navbar-text fw-semibold"
+                    style="color:#f8fafc;">
+                    Advanced Intrusion Detection & Web Protection System
+                </span>
+
+            </div>
+
+        </nav>
+
+    <div class="container mt-4">
+
+        <div class="text-center mb-5">
 
             <h1 class="dashboard-title">
-            🛡 SentinelShield Security Dashboard
+                SentinelShield Security Dashboard
             </h1>
 
-            <div class="row">
+            <p class="text-secondary">
+                Monitor HTTP requests, detect malicious attacks, analyze traffic patterns, and visualize security events in real time.
+            </p>
 
-                <div class="col-md-4 mb-3">
+        </div>
 
-                    <div class="card text-white" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">
+        <div class="row">
 
-                        <div class="card-body text-center">
+            <div class="col-md-4 mb-3">
 
-                            <h5>Total Requests</h5>
+                <div class="card text-white" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">
 
-                            <h2>{{ total_requests }}</h2>
+                    <div class="card-body text-center">
 
-                        </div>
+                        <h5>📨 Total Requests</h5>
 
-                    </div>
-
-                </div>
-
-                    <div class="col-md-4 mb-3">
-                        
-                        <div class="card text-white" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">
-                            
-                            <div class="card-body text-center">
-
-                            <h5>Blocked Requests</h5>
-
-                            <h2>{{ blocked_requests }}</h2>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    
-                    <div class="card text-white" style="background:linear-gradient(135deg,#10b981,#047857);">
-                        
-                        <div class="card-body text-center">
-
-                            <h5>Threat Level</h5>
-
-                            {% if threat_level == "LOW" %}
-
-                            <span class="badge bg-success px-4 py-3 fs-4">
-                                {{ threat_level }}
-                            </span>
-
-                            {% elif threat_level == "MEDIUM" %}
-
-                            <span class="badge bg-warning text-dark px-4 py-3 fs-4">
-                                {{ threat_level }}
-                            </span>
-
-                            {% else %}
-
-                            <span class="badge bg-danger px-4 py-3 fs-4">
-                                {{ threat_level }}
-                            </span>
-
-                            {% endif %}
-
-                        </div>
+                        <h2>{{ total_requests }}</h2>
 
                     </div>
 
@@ -191,19 +208,148 @@
 
             </div>
 
-            <hr>
+            <div class="col-md-4 mb-3">
+                        
+                <div class="card text-white" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">
+                            
+                    <div class="card-body text-center">
 
-            <h3 class="section-title">Attack Distribution</h3>
+                        <h5>🚫 Blocked Requests</h5>
 
-            <table class="table table-dark table-striped">
+                        <h2>{{ blocked_requests }}</h2>
 
-                <thead>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4 mb-3">
+                    
+                <div class="card text-white" style="background:linear-gradient(135deg,#10b981,#047857);">
+                        
+                    <div class="card-body text-center">
+
+                        <h5>🛡️ Threat Level</h5>
+
+                        {% if threat_level == "LOW" %}
+
+                        <span class="badge bg-success px-4 py-3 fs-4">
+                            {{ threat_level }}
+                        </span>
+
+                        {% elif threat_level == "MEDIUM" %}
+
+                        <span class="badge bg-warning text-dark px-4 py-3 fs-4">
+                            {{ threat_level }}
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger px-4 py-3 fs-4">
+                            {{ threat_level }}
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h3 class="section-title">Attack Distribution</h3>
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+
+                <tr>
+
+                    <th>Attack</th>
+
+                    <th>Count</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for attack, count in attack_counts.items() %}
+
+                <tr>
+
+                    <td style="width:30%;">{{ attack }}</td>
+
+                    <td style="width:55%;">
+
+                        <div class="progress">
+
+                            <div
+                            class="progress-bar bg-danger"
+                            role="progressbar"
+                            style="width: {{ [count * 10, 100] | min }}%;">
+                                {{ count }}
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-danger">{{ count }}</span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <hr>
+
+        <h3 class="section-title">
+            Attack Distribution Chart
+        </h3>
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-6 col-lg-5">
+
+                <canvas id="attackChart" style="max-height:350px;"></canvas>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h3 class="section-title">
+            Recent Security Events
+        </h3>
+
+        <div class="table-responsive">
+
+            <table class="table table-dark table-hover align-middle">
+
+                <thead class="table-secondary text-dark">
 
                     <tr>
 
+                        <th>Time</th>
+                        <th>IP Address</th>
+                        <th>Method</th>
                         <th>Attack</th>
-
-                        <th>Count</th>
+                        <th>Request URL</th>
 
                     </tr>
 
@@ -211,31 +357,44 @@
 
                 <tbody>
 
-                    {% for attack, count in attack_counts.items() %}
+                    {% for log in recent_logs %}
 
                     <tr>
 
-                        <td style="width:30%;">{{ attack }}</td>
+                        <td style="font-size:12px;">
+                            {{ log.time }}
+                        </td>
 
-                        <td style="width:55%;">
+                        <td>
+                            {{ log.ip }}
+                        </td>
 
-                            <div class="progress">
-
-                                <div
-                                class="progress-bar bg-danger"
-                                role="progressbar"
-                                style="width: {{ [count * 10, 100] | min }}%;">
-                                    {{ count }}
-                                </div>
-
-                            </div>
-
+                        <td>
+                            <span class="badge bg-primary">
+                                {{ log.method }}
+                            </span>
                         </td>
 
                         <td>
 
-                            <span class="badge bg-danger">{{ count }}</span>
+                        {% if log.attack == "Normal" %}
 
+                        <span class="badge bg-success">
+                            Normal
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger">
+                            {{ log.attack }}
+                        </span>
+
+                        {% endif %}
+
+                        </td>
+
+                        <td style="font-size:12px; max-width:350px; word-break:break-word;">
+                            {{ log.url }}
                         </td>
 
                     </tr>
@@ -245,36 +404,6 @@
                 </tbody>
 
             </table>
-
-            <hr>
-
-            <h3 class="section-title">
-                Attack Distribution Chart
-            </h3>
-
-            <div class="row justify-content-center">
-
-                <div class="col-md-6 col-lg-5">
-
-                    <canvas id="attackChart" style="max-height:350px;"></canvas>
-
-                </div>
-
-            </div>
-
-            <hr>
-
-            <h3 class="section-title">Recent Security Events</h3>
-
-            <div class="logs-box">
-
-                {% for log in recent_logs %}
-
-                <p style="font-size:13px;">{{ log }}</p>
-
-                {% endfor %}
-
-            </div>
 
         </div>
 
@@ -331,7 +460,11 @@
         });
 
         </script>
+        <hr>
 
+        <footer class="text-center text-secondary py-3">
+            © 2026 SentinelShield • Advanced Intrusion Detection & Web Protection System
+        </footer>
     </body>
 
 </html>

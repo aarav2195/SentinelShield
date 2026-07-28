@@ -40,8 +40,6 @@ def get_dashboard_data():
             blocked_requests += 1
             attack_counts[attack] = attack_counts.get(attack, 0) + 1
 
-    recent_logs = recent_logs[-10:]
-
     if total_requests == 0:
         threat_level = "LOW"
 
@@ -55,4 +53,20 @@ def get_dashboard_data():
         else:
             threat_level = "HIGH"
 
-    return (total_requests,blocked_requests,attack_counts,recent_logs,threat_level)
+    parsed_logs = []
+
+    for log in recent_logs[-10:]:
+
+        parts = [x.strip() for x in log.split("|")]
+
+        if len(parts) >= 6:
+
+            parsed_logs.append({
+                "time": parts[0],
+                "ip": parts[1].replace("IP=", ""),
+                "method": parts[2].replace("Method=", ""),
+                "attack": parts[4].replace("Attack=", ""),
+                "url": parts[5].replace("URL=", "")
+            })
+
+    return (total_requests,blocked_requests,attack_counts,parsed_logs,threat_level)
