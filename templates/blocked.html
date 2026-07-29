@@ -1,50 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
 
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
 
-    <title>SentinelShield | Access Blocked</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</head>
+        <title>Request Blocked | SentinelShield</title>
 
-<body style="font-family:Arial;background:#111827;color:white;text-align:center;padding:60px;">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <h1 style="color:#ef4444;">
-        🛡 SentinelShield
-    </h1>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-    <hr>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
 
-    <h2>
-        🚫 Access Denied
-    </h2>
+        <style>
 
-    <p>
-        Your request has been identified as malicious and has been blocked.
-    </p>
+            body{
+                background:#0f172a;
+                color:white;
+                font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+            }
 
-    <h3 style="color:#facc15;">
-        {{ attack }}
-    </h3>
+            .navbar{
+                background:#000;
+            }
 
-    <p>
-        Client IP :
-        {{ ip }}
-    </p>
+            .brand{
+                font-size:28px;
+                font-weight:bold;
+            }
 
-    <p>
-        HTTP Status :
-        <b>403 Forbidden</b>
-    </p>
+            .subtitle{
+                color:#94a3b8;
+            }
 
-    <hr>
+            .main-card{
+                background:#1e293b;
+                border:none;
+                border-radius:20px;
+                padding:45px;
+                box-shadow:0 0 30px rgba(0,0,0,.4);
+            }
 
-    <p style="color:gray;">
-        Protected by SentinelShield Advanced Web Protection System
-    </p>
+            .danger-icon{
+                font-size:90px;
+                color:#ef4444;
+                animation:pulse 1.5s infinite;
+            }
 
-</body>
+            @keyframes pulse{
+
+                0%{transform:scale(1);}
+
+                50%{transform:scale(1.12);}
+
+                100%{transform:scale(1);}
+
+            }
+
+            .status-card{
+                background:#273449;
+                border-radius:15px;
+                padding:20px;
+                transition:.3s;
+                height:100%;
+            }
+
+            .status-card:hover{
+                transform:translateY(-5px);
+                box-shadow:0 0 18px rgba(59,130,246,.4);
+            }
+
+            .status-title{
+                color:#38bdf8;
+                font-size:15px;
+                text-transform:uppercase;
+                letter-spacing:1px;
+            }
+
+            .status-value{
+                font-size:22px;
+                font-weight:bold;
+                margin-top:8px;
+            }
+
+            .attack-badge{
+                background:#ef4444;
+                color:white;
+                font-size:18px;
+                padding:10px 20px;
+                border-radius:30px;
+            }
+
+            .home-btn{
+
+                padding:12px 28px;
+                border-radius:12px;
+                font-size:18px;
+
+            }
+
+            .footer-text{
+
+                color:#94a3b8;
+                font-size:14px;
+
+            }
+
+            .card{
+                background:#1f2937;
+                color:white;
+                border-radius:20px;
+            }
+
+            .card ul{
+                padding-left:20px;
+            }
+
+            .card li{
+                margin-bottom:10px;
+            }
+
+            .text-secondary{
+                color:#cbd5e1 !important;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+
+            <div class="container">
+
+                <a class="navbar-brand" href="/">
+                    🛡️ SentinelShield
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="d-flex gap-2">
+
+                    <a href="/"
+                    class="btn btn-primary nav-btn">
+
+                        Home
+
+                    </a>
+
+                    <a href="/inspect"
+                    class="btn btn-outline-light nav-btn">
+
+                        Inspect
+
+                    </a>
+
+                    <a href="/dashboard"
+                    class="btn btn-outline-light nav-btn">
+
+                        Dashboard
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container mt-5">
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-8">
+
+                    <div class="card shadow-lg border-0 text-center p-5">
+
+                        <div class="mb-4">
+
+                            <span style="font-size:90px;">
+
+                                🚫
+
+                            </span>
+
+                        </div>
+
+                        <h1 class="text-danger fw-bold mb-3">
+
+                            Request Blocked
+
+                        </h1>
+
+                        <p class="lead text-secondary mb-4">
+
+                            SentinelShield successfully detected and blocked a suspicious request.
+
+                        </p>
+
+                        <hr>
+
+                        <div class="row text-start mt-4">
+
+                            <div class="col-md-6 mb-4">
+
+                                <h5 class="section-title">
+
+                                    ⚠ Detection Summary
+
+                                </h5>
+
+                                <p>
+
+                                    <strong class="text-info">
+
+                                        Attack Type
+
+                                    </strong>
+
+                                    <br>
+
+                                    <span class="text-light">
+
+                                        {{ attack }}
+
+                                    </span>
+
+                                </p>
+
+                                <p>
+
+                                    <strong class="text-info">
+
+                                        Client IP
+
+                                    </strong>
+
+                                    <br>
+
+                                    <span class="text-light">
+
+                                        {{ ip }}
+
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+
+                                <h5 class="section-title">
+
+                                    🛡 System Response
+
+                                </h5>
+
+                                <ul class="text-light">
+
+                                    <li>Request immediately blocked</li>
+
+                                    <li>Security event logged</li>
+
+                                    <li>Threat visible in dashboard</li>
+
+                                    <li>Application protected</li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="mt-4 d-flex justify-content-center flex-wrap gap-3">
+
+                            <a href="/"
+
+                            class="btn btn-outline-light btn-lg px-4 py-3"
+
+                            style="width:220px;">
+
+                                ← Return Home
+
+                            </a>
+
+                            <a href="/dashboard"
+
+                            class="btn btn-primary btn-lg px-4 py-3"
+
+                            style="width:220px;">
+
+                                Open Dashboard →
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        
+        <footer>
+
+            <strong>
+
+                🛡 SentinelShield
+
+            </strong>
+
+            <br>
+
+            Advanced Intrusion Detection & Web Protection System
+
+        </footer>
+    </body>
 
 </html>

@@ -1,0 +1,184 @@
+/* ==========================================================
+   SENTINELSHIELD COMMON STYLES
+   Shared Navbar + Buttons + Common Layout
+========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    padding-top:90px;
+    background:#111827;
+    color:#ffffff;
+    font-family:"Poppins","Segoe UI",sans-serif;
+    min-height:100vh;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.custom-navbar{
+    background:#05070d;
+    padding:16px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    backdrop-filter:blur(8px);
+}
+
+.navbar-brand{
+    font-size:32px;
+    font-weight:700;
+    color:#ffffff !important;
+    letter-spacing:.5px;
+    transition:.3s;
+}
+
+.navbar-brand:hover{
+    color:#38bdf8 !important;
+}
+
+.navbar-toggler{
+    border:none;
+}
+
+.navbar-toggler:focus{
+    box-shadow:none;
+}
+
+.nav-btn{
+    width:115px;
+    height:44px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+    font-size:15px;
+    transition:.3s;
+}
+
+.nav-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 15px rgba(0,0,0,.25);
+}
+
+.btn-primary{
+    background:#2563eb;
+    border:none;
+    font-weight:600;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.btn-outline-light{
+    border:1px solid rgba(255,255,255,.7);
+}
+
+.btn-outline-info{
+    border-width:2px;
+}
+
+.btn-outline-info{
+    color:#38bdf8;
+    border:1px solid #38bdf8;
+}
+
+.btn-outline-info:hover{
+    background:#38bdf8;
+    color:#000;
+}
+
+.btn-outline-light:hover{
+    background:#ffffff;
+    color:#000;
+}
+
+/* ===========================
+   COMMON CONTAINERS
+=========================== */
+
+.main-card{
+    background:#1f2937;
+    border-radius:18px;
+    padding:35px;
+    border:1px solid rgba(255,255,255,.05);
+    box-shadow:0 12px 28px rgba(0,0,0,.25);
+}
+
+.section-title{
+    color:#22d3ee;
+    font-weight:700;
+    margin-bottom:25px;
+    letter-spacing:0.5px;
+}
+
+.info-card{
+    background:#1e293b;
+    border-radius:18px;
+    padding:25px;
+    border:1px solid rgba(255,255,255,.05);
+    transition:.3s;
+}
+
+.info-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 14px 30px rgba(0,0,0,.35);
+}
+
+/* ===========================
+   TABLES
+=========================== */
+
+.table-dark{
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.table thead{
+    background:#1e293b;
+}
+
+.table tbody tr:hover{
+    background:#334155;
+}
+
+.card{
+    border-radius:18px !important;
+    border:none !important;
+}
+
+.shadow-lg{
+    box-shadow:0 12px 30px rgba(0,0,0,.30) !important;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn{
+    border-radius:10px;
+    font-weight:600;
+}
+
+.btn-lg{
+    border-radius:12px;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+footer{
+    margin-top:70px;
+    padding:30px;
+    text-align:center;
+    color:#94a3b8;
+    border-top:1px solid rgba(255,255,255,.08);
+    font-size:15px;
+}

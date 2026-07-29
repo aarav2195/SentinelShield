@@ -26,26 +26,26 @@ def home():
     if attack:
         return render_template("blocked.html",attack=attack,ip=request_info["ip"]),403
 
-    return f"""
-    <h1>SentinelShield</h1>
+    return render_template("home.html")
 
-    <h3>HTTP Request Inspection</h3>
+@app.route("/inspect")
+def inspect():
 
-    <b>Attack Status:</b> {attack if attack else "No Attack Detected"}<br><br>
+    request_info = inspect_request()
 
-    <b>Client IP:</b> {request_info['ip']}<br><br>
+    if check_rate_limit(request_info["ip"]):
+        log_request(request_info, "Rate Limit Exceeded")
 
-    <b>Method:</b> {request_info['method']}<br><br>
+        return render_template("blocked.html",attack="Rate Limit Exceeded",ip=request_info["ip"]),429
 
-    <b>URL:</b> {request_info['url']}<br><br>
+    attack = detect_attack(request_info)
 
-    <b>Path:</b> {request_info['path']}<br><br>
+    log_request(request_info, attack)
 
-    <b>Query Parameters:</b> {request_info['query_parameters']}<br><br>
+    if attack:
+        return render_template("blocked.html",attack=attack,ip=request_info["ip"]),403
 
-    <b>Form Data:</b> {request_info['form_data']}<br><br>
-
-    """
+    return render_template("inspect.html",request_info=request_info,attack=attack)
 
 @app.route("/dashboard")
 def dashboard():
