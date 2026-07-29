@@ -319,37 +319,51 @@
             </thead>
 
             <tbody>
+                {% if attack_counts %}
+                    {% for attack, count in attack_counts.items() %}
 
-                {% for attack, count in attack_counts.items() %}
+                    <tr>
 
-                <tr>
+                        <td style="width:30%;">{{ attack }}</td>
 
-                    <td style="width:30%;">{{ attack }}</td>
+                        <td style="width:55%;">
 
-                    <td style="width:55%;">
+                            <div class="progress">
 
-                        <div class="progress">
+                                <div
+                                class="progress-bar bg-danger"
+                                role="progressbar"
+                                style="width: {{ [count * 10, 100] | min }}%;">
+                                    {{ count }}
+                                </div>
 
-                            <div
-                            class="progress-bar bg-danger"
-                            role="progressbar"
-                            style="width: {{ [count * 10, 100] | min }}%;">
-                                {{ count }}
                             </div>
 
-                        </div>
+                        </td>
 
-                    </td>
+                        <td>
 
-                    <td>
+                            <span class="badge bg-danger">{{ count }}</span>
 
-                        <span class="badge bg-danger">{{ count }}</span>
+                        </td>
 
-                    </td>
+                    </tr>
 
-                </tr>
+                    {% endfor %}
 
-                {% endfor %}
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center text-secondary">
+
+                            No attack events available.
+
+                        </td>
+
+                    </tr>
+
+                    {% endif %}
 
             </tbody>
 
@@ -422,6 +436,7 @@
                     <tr>
 
                         <th>Time</th>
+                        <th>Status</th>
                         <th>IP Address</th>
                         <th>Method</th>
                         <th>Attack</th>
@@ -441,6 +456,10 @@
 
                             <td style="font-size:12px;">
                                 {{ log.time }}
+                            </td>
+                            
+                            <td>
+                                {{log.status}}
                             </td>
 
                             <td>
@@ -483,7 +502,7 @@
 
                     <tr>
 
-                        <td colspan="5" class="text-center text-secondary">
+                        <td colspan="6" class="text-center text-secondary">
 
                             No security events available.
 

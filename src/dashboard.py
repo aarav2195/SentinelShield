@@ -63,10 +63,11 @@ def get_dashboard_data():
 
             parsed_logs.append({
                 "time": parts[0],
-                "ip": parts[1].replace("IP=", ""),
-                "method": parts[2].replace("Method=", ""),
-                "attack": parts[4].replace("Attack=", ""),
-                "url": parts[5].replace("URL=", "")
+                "status":parts[1].replace("Status=",""),
+                "ip": parts[2].replace("IP=", ""),
+                "method": parts[3].replace("Method=", ""),
+                "attack": parts[5].replace("Attack=", ""),
+                "url": parts[6].replace("URL=", "")
             })
 
     return (total_requests,blocked_requests,attack_counts,parsed_logs,threat_level)

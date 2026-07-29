@@ -14,7 +14,10 @@ logger = logging.getLogger(__name__)
 
 def log_request(request_info, attack_status):
 
+    status = "BLOCKED" if attack_status else "ALLOWED"
+
     logger.info(
+        f"Status={status} | "
         f"IP={request_info['ip']} | "
         f"Method={request_info['method']} | "
         f"Path={request_info['path']} | "
