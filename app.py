@@ -8,44 +8,57 @@ from src.rate_limiter import check_rate_limit
 
 app = Flask(__name__)
 
+last_request = None
+last_attack = None
 
 @app.route("/")
 def home():
 
+    global last_request, last_attack
+
     request_info = inspect_request()
 
     if check_rate_limit(request_info["ip"]):
-        log_request(request_info, "Rate Limit Exceeded")
+        last_request = request_info.copy()
+        last_attack = "Rate Limit Exceeded"
+
+        if last_request["path"] not in ["/inspect", "/dashboard", "/favicon.ico"]:
+            log_request(request_info, "Rate Limit Exceeded")
 
         return render_template("blocked.html",attack="Rate Limit Exceeded",ip=request_info["ip"]), 429
 
     attack = detect_attack(request_info)
 
-    log_request(request_info, attack)
+    last_request = request_info.copy()
+    last_attack = attack
+
+    if request_info["path"] not in ["/inspect", "/dashboard", "/favicon.ico"]:
+        log_request(request_info, attack)
 
     if attack:
         return render_template("blocked.html",attack=attack,ip=request_info["ip"]),403
-
+    
     return render_template("home.html")
 
 @app.route("/inspect")
 def inspect():
 
-    request_info = inspect_request()
+    global last_request, last_attack
 
-    if check_rate_limit(request_info["ip"]):
-        log_request(request_info, "Rate Limit Exceeded")
+    if last_request is None:
 
-        return render_template("blocked.html",attack="Rate Limit Exceeded",ip=request_info["ip"]),429
+        last_request = {
+            "ip": "-",
+            "method": "-",
+            "path": "-",
+            "url": "No requests inspected yet.",
+            "query_parameters": "-",
+            "form_data": "-"
+        }
 
-    attack = detect_attack(request_info)
+        last_attack = None
 
-    log_request(request_info, attack)
-
-    if attack:
-        return render_template("blocked.html",attack=attack,ip=request_info["ip"]),403
-
-    return render_template("inspect.html",request_info=request_info,attack=attack)
+    return render_template("inspect.html",request_info=last_request,attack=last_attack)
 
 @app.route("/dashboard")
 def dashboard():
@@ -62,4 +75,4 @@ def dashboard():
     )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

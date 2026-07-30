@@ -27,6 +27,9 @@ def get_dashboard_data():
         if "IP=" not in line:
             continue
 
+        if "Path=/inspect" in line or "Path=/dashboard" in line or "Path=/favicon.ico" in line:
+            continue
+
         total_requests += 1
         recent_logs.append(line)
 
