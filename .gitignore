@@ -2,15 +2,20 @@
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyc
 
 # Virtual Environment
+.env
 .venv/
+venv/
 
 # VS Code
 .vscode/
+.idea/
 
 # Logs
 logs/*.log
+*.sqlite3
 
 # Python cache
 .pytest_cache/
@@ -18,3 +23,6 @@ logs/*.log
 # Operating System
 .DS_Store
 Thumbs.db
+
+*.tmp
+*.bak
