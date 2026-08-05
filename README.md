@@ -52,8 +52,24 @@ The project demonstrates practical web security concepts including request inspe
 SentinelShield/
 │
 ├── logs/
+│   └── requests.log
 ├── reports/
+│   ├── Architecture_Diagram.png
+│   ├── Project_Summary.md
+│   ├── Request_Worflow.png
+│   ├── SentinelShield_Presentation.pptx
+│   └── SentineShield_Report.pdf
 ├── screenshots/
+│   ├── command_injection/
+│   ├── cross_site_scripting(xss)/
+│   ├── dashboard/
+│   ├── directoty_traversal/
+│   ├── home/
+│   ├── inspect/
+│   ├── kali_linux_testing/
+│   ├── local_file_inclusion/
+│   ├── rate_limit_exceeding/
+│   └── sql_injection/
 ├── src/
 │   ├── detector.py
 │   ├── dashboard.py
@@ -63,7 +79,13 @@ SentinelShield/
 │   └── utils.py
 │
 ├── static/
+│   └── css/
+│       └── common.css
 ├── templates/
+│   ├── blocked.html
+│   ├── dashboard.html
+│   ├── home.html
+│   └── inspect.html
 │
 ├── app.py
 ├── README.md
