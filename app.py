@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from src.utils import inspect_request
 from src.logger import log_request
@@ -59,6 +59,48 @@ def inspect():
         last_attack = None
 
     return render_template("inspect.html",request_info=last_request,attack=last_attack)
+
+@app.route("/demo/<attack_type>")
+def demo_attack(attack_type):
+    global last_request, last_attack
+
+    demo_payloads = {
+        "sqli": "' OR 1=1",
+        "command": "; ls"
+    }
+
+    if attack_type not in demo_payloads:
+        return "Invalid demo attack type", 400
+
+    payload = demo_payloads[attack_type]
+
+    request_info = {
+        "ip": request.remote_addr,
+        "method": "GET",
+        "path": "/demo/" + attack_type,
+        "url": request.url,
+        "headers": dict(request.headers),
+        "query_parameters": {
+            "q": payload
+        },
+        "form_data": {}
+    }
+
+    attack = detect_attack(request_info)
+
+    last_request = request_info.copy()
+    last_attack = attack
+
+    log_request(request_info, attack)
+
+    if attack:
+        return render_template(
+            "blocked.html",
+            attack=attack,
+            ip=request_info["ip"]
+        ), 403
+
+    return "Demo request was not detected", 200
 
 @app.route("/dashboard")
 def dashboard():
